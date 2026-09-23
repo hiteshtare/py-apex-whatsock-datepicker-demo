@@ -8,26 +8,30 @@ var arrivalDatepicker = $A.setDatepicker({
 
   // Native or simulated input element
   input: $A.get("arrivalDate"),
+  // style: { position: "relative", zIndex: 1, display: "none" },
   openOnFocus: true,
-    animate: {
-      onRender: function(dc, wrapper, next) {
-        $A.Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
-            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-            next();
-          }
-        });
-      },
-      onRemove: function(dc, wrapper, next) {
-        $A.Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
-            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-            next();
-          }
-        });
-      }
+  inputDateFormat: 'DD/MM/YYYY',
+  minDate: 10,
+  maxDate: 180,
+  wdOffset: 0, // 0 is Sunday
+  animate: {
+    onRender: function(dc, wrapper, next) {
+      $A.Velocity(wrapper, "transition.fadeIn", {
+        complete: function() {
+          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+          next();
+        }
+      });
+    },
+    onRemove: function(dc, wrapper, next) {
+      $A.Velocity(wrapper, "transition.fadeOut", {
+        complete: function() {
+          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+          next();
+        }
+      });
     }
-  
+  }
 });
   
 // datepicker.render(); // Manually open the datepicker. ~
@@ -43,23 +47,26 @@ var departureDatepicker = $A.setDatepicker({
   // Native or simulated input element
   input: $A.get("departureDate"),
   openOnFocus: true,
-    animate: {
-      onRender: function(dc, wrapper, next) {
-        $A.Velocity(wrapper, "transition.fadeIn", {
-          complete: function() {
-            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-            next();
-          }
-        });
-      },
-      onRemove: function(dc, wrapper, next) {
-        $A.Velocity(wrapper, "transition.fadeOut", {
-          complete: function() {
-            // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-            next();
-          }
-        });
-      }
+  inputDateFormat: 'DD/MM/YYYY',
+  minDate: 10,
+  maxDate: 180,
+  wdOffset: 0, // 0 is Sunday
+  animate: {
+    onRender: function(dc, wrapper, next) {
+      $A.Velocity(wrapper, "transition.fadeIn", {
+        complete: function() {
+          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+          next();
+        }
+      });
+    },
+    onRemove: function(dc, wrapper, next) {
+      $A.Velocity(wrapper, "transition.fadeOut", {
+        complete: function() {
+          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
+          next();
+        }
+      });
     }
-  
+  }
 });

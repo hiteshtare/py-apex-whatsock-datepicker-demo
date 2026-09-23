@@ -39,22 +39,38 @@
             font-weight: bold;
             color: #28a745 !important;
         }
+
+        label, input[type="text"] {
+          font-size: large !important;
+        }
+
+        .accCalendar {
+          max-height: 32px !important;
+          max-width: 32px !important;
+          background-color: gray !important;
+        }
+
+        .imgCalendar {
+         max-height: 28px !important;
+          max-width: 28px !important;
+        }
+
     </style>
 </head>
 <body> <!-- The <body> tag contains everything visible on the webpage -->
   <h1>Welcome to Datepicker Demo</h1>
 
   <label for="arrivalDate">Arrival Date:</label>
-  <input placeholder="MM/DD/YYYY" id="arrivalDate" type="text" name="date">
+  <input placeholder="DD/MM/YYYY" id="arrivalDate" type="text" name="date">
   <button id="arrivalDateIcon" class="accCalendar aria-date-picker">
-    <img src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
+    <img class="imgCalendar" src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
   </button>
   &nbsp;  
 &nbsp;  
   <label for="departureDate">Departure Date:</label>
-  <input placeholder="MM/DD/YYYY" id="departureDate" type="text" name="date">
+  <input placeholder="DD/MM/YYYY" id="departureDate" type="text" name="date">
   <button id="departureDateIcon" class="accCalendar aria-date-picker">
-    <img src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
+    <img class="imgCalendar" src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
   </button>
 
 <link rel="stylesheet" type="text/css" href="../4X/Standard/Modules/Dragula.css">
