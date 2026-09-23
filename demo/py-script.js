@@ -3,6 +3,9 @@ var maxStayDuration = 8;
 var bookingHorizon = 180;
 var arrivalCutoff = 10;
 var arrDisabledDays = ['2030/01/01', '2026/08/20', '2026/08/21', '2026/08/22', '2026/08/23', '2026/08/24', '2026/09/17', '2026/09/18', '2026/09/19', '2026/09/20', '2026/09/21', '2026/10/22', '2026/10/23', '2026/10/24', '2026/10/25', '2026/10/26', '2026/11/26', '2026/11/27', '2026/11/28', '2026/11/29', '2026/11/30', '2026/12/24', '2026/12/25', '2026/12/26', '2026/12/27', '2026/12/28'];
+
+console.warn(`arrDisabledDays`);
+console.log(arrDisabledDays);
 // ---------------------- Define Variables ---------------------- //
 
 var arrivalDatepicker = $A.setDatepicker({
@@ -21,6 +24,19 @@ var arrivalDatepicker = $A.setDatepicker({
   minDate: arrivalCutoff,
   maxDate: bookingHorizon,
   wdOffset: 0, // 0 is Sunday
+  configure: function( dc ) {
+      for ( const dateStr of arrDisabledDays ) {
+          const disabledDate = new Date( dateStr );
+          const y = disabledDate.getFullYear();
+          const monthIndex = disabledDate.getMonth();
+          const day = disabledDate.getDate();
+          if ( ! dc.range[ monthIndex ].disabled[ y ] ) {
+              dc.range[ monthIndex ].disabled[ y ] = [];
+          }
+          dc.range[ monthIndex ].disabled[ y ].push( day );
+      }
+      return true;
+  },
   onActivate: function (event, dc) {
     const selected = dc.formatDate(dc);
     dc.target.value = selected;
@@ -46,6 +62,19 @@ var departureDatepicker = $A.setDatepicker({
   minDate: arrivalCutoff,
   maxDate: bookingHorizon,
   wdOffset: 0, // 0 is Sunday
+  configure: function( dc ) {
+    for ( const dateStr of arrDisabledDays ) {
+        const disabledDate = new Date( dateStr );
+        const y = disabledDate.getFullYear();
+        const monthIndex = disabledDate.getMonth();
+        const day = disabledDate.getDate();
+        if ( ! dc.range[ monthIndex ].disabled[ y ] ) {
+            dc.range[ monthIndex ].disabled[ y ] = [];
+        }
+        dc.range[ monthIndex ].disabled[ y ].push( day );
+    }
+    return true;
+  },
 });
 
 function restrictDepartureDate(selected) {
@@ -55,9 +84,6 @@ function restrictDepartureDate(selected) {
     console.warn(`formattedSelectedArrivalDate`);
     console.log(formattedSelectedArrivalDate);
     departureCalendarConfig.minDate = formattedSelectedArrivalDate;
-
-    console.warn(`arrDisabledDays`);
-    console.log(arrDisabledDays);
 
     const closestDate = closestValidDate(arrDisabledDays, selected);
     console.warn(`closestDate`);
@@ -69,7 +95,7 @@ function restrictDepartureDate(selected) {
     datepickerDeparture.value = selected;
 
 
-    // departureCalendarConfig.destroy(); // Closes the calendar panel
+    departureCalendarConfig.remove(); // Closes the calendar panel
     departureCalendarConfig.render(); // Re-opens with the newly bound minDate constraints
   }
 }
