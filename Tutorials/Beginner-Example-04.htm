@@ -57,7 +57,7 @@
         position: relative;
       }
 
-      button#dateIcon2 {
+      button#startDateIcon {
         top: -1.6em;
         position: absolute;
       }
@@ -225,9 +225,9 @@
               </p>
               <div>
                 <textarea title="Example 4 markup" id="example4.1">
-                                  <label for="dateId2">Set Date:</label>
-                                  <input placeholder="MM/DD/YYYY" id="dateId2" type="text" name="date">
-                                  <button id="dateIcon2" class="accCalendar aria-date-picker">
+                                  <label for="startDate">Set Date:</label>
+                                  <input placeholder="MM/DD/YYYY" id="startDate" type="text" name="date">
+                                  <button id="startDateIcon" class="accCalendar aria-date-picker">
                                     <img src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
                                   </button>
                                   </textarea
@@ -247,10 +247,10 @@
                                     id: "UniqueCalendarId",
                                   
                                     // Icon triggering element
-                                    toggle: $A.get("dateIcon2"),
+                                    toggle: $A.get("startDateIcon"),
                                   
                                     // Native or simulated input element
-                                    input: $A.get("dateId2"),
+                                    input: $A.get("startDate"),
                                   
                                     style: { position: "absolute", zIndex: 1, display: "none" },
                                     animate: {
