@@ -47,57 +47,60 @@ var arrivalDatepicker = $A.setDatepicker({
 
 // datepicker.render(); // Manually open the datepicker. ~
 
-var departureDatepicker = $A.setDatepicker({
-  // Unique ID for the date picker instance
-  // After instantiation, can be referenced using: var DC = $A("departureDateCalenderId");
-  id: "departureDateCalenderId",
+initialiseDepartureDatepicker();
 
-  // Icon triggering element
-  toggle: $A.get("departureDateIcon"),
+function initialiseDepartureDatepicker() { 
+  var departureDatepicker = $A.setDatepicker({
+    // Unique ID for the date picker instance
+    // After instantiation, can be referenced using: var DC = $A("departureDateCalenderId");
+    id: "departureDateCalenderId",
 
-  // Native or simulated input element
-  input: $A.get("departureDate"),
-  openOnFocus: true,
-  inputDateFormat: "DD/MM/YYYY",
-  minDate: arrivalCutoff,
-  maxDate: bookingHorizon,
-  wdOffset: 0, // 0 is Sunday
-  configure: function( dc ) {
-    for ( const dateStr of arrDisabledDays ) {
-        const disabledDate = new Date( dateStr );
-        const y = disabledDate.getFullYear();
-        const monthIndex = disabledDate.getMonth();
-        const day = disabledDate.getDate();
-        if ( ! dc.range[ monthIndex ].disabled[ y ] ) {
-            dc.range[ monthIndex ].disabled[ y ] = [];
-        }
-        dc.range[ monthIndex ].disabled[ y ].push( day );
-    }
-    return true;
-  },
-});
+    // Icon triggering element
+    toggle: $A.get("departureDateIcon"),
+
+    // Native or simulated input element
+    input: $A.get("departureDate"),
+    openOnFocus: true,
+    inputDateFormat: "DD/MM/YYYY",
+    minDate: arrivalCutoff,
+    maxDate: bookingHorizon,
+    wdOffset: 0, // 0 is Sunday
+    configure: function( dc ) {
+      for ( const dateStr of arrDisabledDays ) {
+          const disabledDate = new Date( dateStr );
+          const y = disabledDate.getFullYear();
+          const monthIndex = disabledDate.getMonth();
+          const day = disabledDate.getDate();
+          if ( ! dc.range[ monthIndex ].disabled[ y ] ) {
+              dc.range[ monthIndex ].disabled[ y ] = [];
+          }
+          dc.range[ monthIndex ].disabled[ y ].push( day );
+      }
+      return true;
+    },
+  });
+}
 
 function restrictDepartureDate(selected) {
-  var departureCalendarConfig = $A("departureDateCalenderId");
-  if (departureCalendarConfig) {
     const formattedSelectedArrivalDate = formatDate(selected);
     console.warn(`formattedSelectedArrivalDate`);
     console.log(formattedSelectedArrivalDate);
-    departureCalendarConfig.minDate = formattedSelectedArrivalDate;
 
     const closestDate = closestValidDate(arrDisabledDays, selected);
     console.warn(`closestDate`);
     console.log(closestDate);
 
+    initialiseDepartureDatepicker();
+
+    var departureCalendarConfig = $A("departureDateCalenderId");
+    departureCalendarConfig.minDate = formattedSelectedArrivalDate;
     departureCalendarConfig.maxDate = closestDate;
 
     var datepickerDeparture = document.getElementById('departureDate');
     datepickerDeparture.value = selected;
 
-
-    departureCalendarConfig.remove(); // Closes the calendar panel
-    departureCalendarConfig.render(); // Re-opens with the newly bound minDate constraints
-  }
+    // departureCalendarConfig.remove(); // Closes the calendar panel
+    // departureCalendarConfig.render(); // Re-opens with the newly bound minDate constraints
 }
 
 function formatDate(date) {
