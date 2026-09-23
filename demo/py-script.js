@@ -14,24 +14,6 @@ var arrivalDatepicker = $A.setDatepicker({
   minDate: 10,
   maxDate: 180,
   wdOffset: 0, // 0 is Sunday
-  animate: {
-    onRender: function(dc, wrapper, next) {
-      $A.Velocity(wrapper, "transition.fadeIn", {
-        complete: function() {
-          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-          next();
-        }
-      });
-    },
-    onRemove: function(dc, wrapper, next) {
-      $A.Velocity(wrapper, "transition.fadeOut", {
-        complete: function() {
-          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-          next();
-        }
-      });
-    }
-  }
 });
   
 // datepicker.render(); // Manually open the datepicker. ~
@@ -51,22 +33,4 @@ var departureDatepicker = $A.setDatepicker({
   minDate: 10,
   maxDate: 180,
   wdOffset: 0, // 0 is Sunday
-  animate: {
-    onRender: function(dc, wrapper, next) {
-      $A.Velocity(wrapper, "transition.fadeIn", {
-        complete: function() {
-          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-          next();
-        }
-      });
-    },
-    onRemove: function(dc, wrapper, next) {
-      $A.Velocity(wrapper, "transition.fadeOut", {
-        complete: function() {
-          // Running next() is required to continue executing built-in lifecycle methods such as afterRender() when the animation completes.
-          next();
-        }
-      });
-    }
-  }
 });
