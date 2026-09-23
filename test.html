@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample HTML, CSS, & JS Page</title>
+
+    <!-- CSS Styling goes inside the <style> tag within the <head> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9 !important;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333333 !important;
+            padding-top: 30px !important;
+            font-size: 30px !important;
+        }
+
+        button {
+            background-color: #007bff !important;
+            color: white !important;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3 !important;
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #28a745 !important;
+        }
+    </style>
+</head>
+<body> <!-- The <body> tag contains everything visible on the webpage -->
+  <h1>Welcome to Datepicker Demo</h1>
+
+  <label for="dateId2">Set Date:</label>
+  <input placeholder="MM/DD/YYYY" id="dateId2" type="text" name="date">
+  <button id="dateIcon2" class="accCalendar aria-date-picker">
+    <img src="../Templates/Datepickers/Basic/img/calendar-button.svg" alt="Calendar" title="Calendar" />
+  </button>
+
+<link rel="stylesheet" type="text/css" href="4X/Standard/Modules/Dragula.css">
+<link rel="stylesheet" type="text/css" href="4X/Standard/Modules/TinySlider.css">
+
+<link
+      rel="stylesheet"
+      type="text/css"
+      href="/Templates/_common/_doc_files/css/global.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/Templates/Datepickers/Basic/css/datepicker.css"
+    />
+
+    <script  src="4X/4X.js"></script>
+    <script src="4X/Standard/Min/Beep.js"></script>
+    <script src="4X/Standard/Min/Velocity.js"></script>
+    <script src="4X/Standard/Min/VelocityUI.js"></script>
+    <script src="4X/Standard/Min/Animate.js"></script>
+    <script src="4X/Standard/Min/Datepicker.js"></script>
+
+    <script  src="4X/Standard/Modules/Datepicker.js"></script>
+
+    <!-- JavaScript goes inside the <script> tag, usually at the bottom of the <body> -->
+    <script src="py-script.js"></script>
+
+</body>
+</html>
