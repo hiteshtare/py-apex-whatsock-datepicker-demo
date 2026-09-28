@@ -2,18 +2,174 @@
 var maxStayDuration = 8;
 var bookingHorizon = 180;
 var arrivalCutoff = 10;
-var arrDisabledDays = ['2030/01/01', '2026/08/20', '2026/08/21', '2026/08/22', '2026/08/23', '2026/08/24', '2026/09/17', '2026/09/18', '2026/09/19', '2026/09/20', '2026/09/21', '2026/10/22', '2026/10/23', '2026/10/24', '2026/10/25', '2026/10/26', '2026/11/26', '2026/11/27', '2026/11/28', '2026/11/29', '2026/11/30', '2026/12/24', '2026/12/25', '2026/12/26', '2026/12/27', '2026/12/28'];
 
-console.warn(`arrDisabledDays`);
-console.log(arrDisabledDays);
+var ajax_data = [
+    {
+        "name": "Individual Retreat",
+        "startdate": "2030-01-01",
+        "enddate": "2030-01-01"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2030-01-01",
+        "enddate": "2030-01-01"
+    },
+    {
+        "name": "Individual Retreat",
+        "startdate": "2026-08-20",
+        "enddate": "2026-08-24"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2026-08-20",
+        "enddate": "2026-08-24"
+    },
+    {
+        "name": "Individual Retreat",
+        "startdate": "2026-07-16",
+        "enddate": "2026-07-20"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2026-07-16",
+        "enddate": "2026-07-20"
+    },
+    {
+        "name": "Individual Retreat",
+        "startdate": "2026-09-17",
+        "enddate": "2026-09-21"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2026-09-17",
+        "enddate": "2026-09-21"
+    },
+    {
+        "name": "Individual Retreat",
+        "startdate": "2026-10-22",
+        "enddate": "2026-10-26"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2026-10-22",
+        "enddate": "2026-10-26"
+    },
+    {
+        "name": "Individual Retreat",
+        "startdate": "2026-11-26",
+        "enddate": "2026-11-30"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2026-11-26",
+        "enddate": "2026-11-30"
+    },
+    {
+        "name": "Individual Retreat",
+        "startdate": "2026-12-24",
+        "enddate": "2026-12-28"
+    },
+    {
+        "name": "Group Retreat",
+        "startdate": "2026-12-24",
+        "enddate": "2026-12-28"
+    },
+    {
+        "name": "Aug 22 - 23: When Will God Come to You?",
+        "startdate": "2026-07-13",
+        "enddate": "2026-08-19"
+    },
+    {
+        "name": "Aug 22 - 23: When Will God Come to You?",
+        "startdate": "2026-08-25",
+        "enddate": "2027-02-24"
+    },
+    {
+        "name": "Jul 18-19: God Communion Man's Greatest Necessity",
+        "startdate": "2026-07-13",
+        "enddate": "2026-07-15"
+    },
+    {
+        "name": "Jul 18-19: God Communion Man's Greatest Necessity",
+        "startdate": "2026-07-21",
+        "enddate": "2027-01-20"
+    },
+    {
+        "name": "Sep 19 - 20: Living the Divine Existence God Planned for You",
+        "startdate": "2026-07-13",
+        "enddate": "2026-09-16"
+    },
+    {
+        "name": "Sep 19 - 20: Living the Divine Existence God Planned for You",
+        "startdate": "2026-09-22",
+        "enddate": "2027-03-21"
+    },
+    {
+        "name": "Oct 24 - 25: Self-realization: Knowing Your Infinite Nature",
+        "startdate": "2026-07-13",
+        "enddate": "2026-10-21"
+    },
+    {
+        "name": "Oct 24 - 25: Self-realization: Knowing Your Infinite Nature",
+        "startdate": "2026-10-27",
+        "enddate": "2027-04-26"
+    },
+    {
+        "name": "Nov 28 - 29: Follow the Path of Great Ones",
+        "startdate": "2026-07-13",
+        "enddate": "2026-11-25"
+    },
+    {
+        "name": "Nov 28 - 29: Follow the Path of Great Ones",
+        "startdate": "2026-12-01",
+        "enddate": "2027-05-30"
+    },
+    {
+        "name": "Dec 26 - 27: How to Attune with Universal Kutastha Consciousness",
+        "startdate": "2026-07-13",
+        "enddate": "2026-12-23"
+    },
+    {
+        "name": "Dec 26 - 27: How to Attune with Universal Kutastha Consciousness",
+        "startdate": "2026-12-29",
+        "enddate": "2027-06-28"
+    }
+]
+
+var arrDisabledDays = [];
 // ---------------------- Define Variables ---------------------- //
 
 var dropdownPurposeOfVisit = $('#input_54_15');
 // Change event for Purpose of visit dropdown
 dropdownPurposeOfVisit.on('change', function () {
   console.log('jQuery:Pupose of Visit - selected: ', this.value);
+
+  let foundData = ajax_data.filter((x) => x.name === this.value);
+  console.warn('foundData');
+  console.log(foundData);
+
+  let mergedArray = foundData;
+
+  // To check mergedArray is not empty
+  console.warn('Datepicker: update mergedArray to Block Dates');
+  console.warn(`mergedArray`);
+  console.log(mergedArray);
+
+  disabledDays = [];
+  arrDisabledDays = [];
+
+  mergedArray.forEach(function (item) {
+    disabledDays += getDates(new Date(item.startdate), new Date(item.enddate));
+    const disableDays = getDates(new Date(item.startdate), new Date(item.enddate));
+    arrDisabledDays.push(...disableDays);
+  });
+
+  console.warn(`disabledDays`);
+  console.log(disabledDays);
+  console.warn(`arrDisabledDays`);
+  console.log(arrDisabledDays);
 });
-                  
+
 var arrivalDatepicker = $A.setDatepicker({
   // Unique ID for the date picker instance
   // After instantiation, can be referenced using: var DC = $A("arrivalDateCalenderId");
@@ -159,3 +315,26 @@ Date.prototype.addDays = function (days) {
   dat.setDate(dat.getDate() + days);
   return dat;
 }
+
+function getDates(startDate, stopDate) {
+                    var dateArray = new Array();
+                    var currentDate = startDate;
+                    while (currentDate <= stopDate) {
+                        var currentDateStr = formatDateToString(currentDate);
+                        dateArray.push(currentDateStr)
+                        currentDate = currentDate.addDays(1);
+                    }
+                    return dateArray;
+}
+                
+function formatDateToString(date) {
+                    const dd = String(date.getDate()).padStart(2, '0');
+                    
+                    // Months are 0-indexed (0 = January), so add 1
+                    const mm = String(date.getMonth() + 1).padStart(2, '0'); 
+                    
+                    // Get the last 4 digits of the year
+                    const yyyy = String(date.getFullYear()); 
+
+                    return `${yyyy}/${mm}/${dd}`;
+                }
