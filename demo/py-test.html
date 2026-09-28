@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample HTML, CSS, & JS Page</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <!-- CSS Styling goes inside the <style> tag within the <head> -->
     <style>
         body {
@@ -40,7 +42,7 @@
             color: #28a745 !important;
         }
 
-        label, input[type="text"] {
+        select, label, input[type="text"] {
           font-size: large !important;
         }
 
@@ -59,7 +61,8 @@
 </head>
 <body> <!-- The <body> tag contains everything visible on the webpage -->
   <h1>Welcome to Datepicker Demo</h1>
-
+  <label for="input_54_15">Purpose:</label>
+  <select name="input_15" id="input_54_15" class="medium gfield_select" aria-required="true" aria-invalid="false"><option value="Individual Retreat" selected="selected">Individual Retreat</option><option value="Group Retreat">Group Retreat</option><option value="Aug 22 - 23: When Will God Come to You?">Aug 22 - 23: When Will God Come to You?</option><option value="Sep 19 - 20: Living the Divine Existence God Planned for You">Sep 19 - 20: Living the Divine Existence God Planned for You</option><option value="Oct 24 - 25: Self-realization: Knowing Your Infinite Nature">Oct 24 - 25: Self-realization: Knowing Your Infinite Nature</option><option value="Nov 28 - 29: Follow the Path of Great Ones">Nov 28 - 29: Follow the Path of Great Ones</option><option value="Dec 26 - 27: How to Attune with Universal Kutastha Consciousness">Dec 26 - 27: How to Attune with Universal Kutastha Consciousness</option></select>
   <label for="arrivalDate">Arrival Date:</label>
   <input placeholder="DD/MM/YYYY" id="arrivalDate" type="text" name="date">
   <button id="arrivalDateIcon" class="accCalendar aria-date-picker">

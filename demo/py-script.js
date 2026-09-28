@@ -8,6 +8,12 @@ console.warn(`arrDisabledDays`);
 console.log(arrDisabledDays);
 // ---------------------- Define Variables ---------------------- //
 
+var dropdownPurposeOfVisit = $('#input_54_15');
+// Change event for Purpose of visit dropdown
+dropdownPurposeOfVisit.on('change', function () {
+  console.log('jQuery:Pupose of Visit - selected: ', this.value);
+});
+                  
 var arrivalDatepicker = $A.setDatepicker({
   // Unique ID for the date picker instance
   // After instantiation, can be referenced using: var DC = $A("arrivalDateCalenderId");
