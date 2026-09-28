@@ -139,12 +139,28 @@ var ajax_data = [
 var arrDisabledDays = [];
 // ---------------------- Define Variables ---------------------- //
 
+Date.prototype.addDays = function (days) {
+  var dat = new Date(this.valueOf())
+  dat.setDate(dat.getDate() + days);
+  return dat;
+}
+
 var dropdownPurposeOfVisit = $('#input_54_15');
+
+updateDatepickerOnDropdownChange (dropdownPurposeOfVisit.val());
+
 // Change event for Purpose of visit dropdown
 dropdownPurposeOfVisit.on('change', function () {
   console.log('jQuery:Pupose of Visit - selected: ', this.value);
+  
+  updateDatepickerOnDropdownChange(this.value);
+}); 
 
-  let foundData = ajax_data.filter((x) => x.name === this.value);
+
+function updateDatepickerOnDropdownChange(currentValue) { 
+  console.warn('updateDatepickerOnDropdownChange');
+  
+  let foundData = ajax_data.filter((x) => x.name === currentValue);
   console.warn('foundData');
   console.log(foundData);
 
@@ -168,7 +184,7 @@ dropdownPurposeOfVisit.on('change', function () {
   console.log(disabledDays);
   console.warn(`arrDisabledDays`);
   console.log(arrDisabledDays);
-});
+}
 
 var arrivalDatepicker = $A.setDatepicker({
   // Unique ID for the date picker instance
@@ -310,23 +326,18 @@ function closestValidDate(dates, param) {
   }
 }
 
-Date.prototype.addDays = function (days) {
-  var dat = new Date(this.valueOf())
-  dat.setDate(dat.getDate() + days);
-  return dat;
-}
-
 function getDates(startDate, stopDate) {
-                    var dateArray = new Array();
-                    var currentDate = startDate;
-                    while (currentDate <= stopDate) {
-                        var currentDateStr = formatDateToString(currentDate);
-                        dateArray.push(currentDateStr)
-                        currentDate = currentDate.addDays(1);
-                    }
-                    return dateArray;
+  var dateArray = new Array();
+  var currentDate = startDate;
+  
+  while (currentDate <= stopDate) {
+    var currentDateStr = formatDateToString(currentDate);
+    dateArray.push(currentDateStr);
+    currentDate = currentDate.addDays(1);
+  }
+  return dateArray;
 }
-                
+        
 function formatDateToString(date) {
                     const dd = String(date.getDate()).padStart(2, '0');
                     
@@ -337,4 +348,4 @@ function formatDateToString(date) {
                     const yyyy = String(date.getFullYear()); 
 
                     return `${yyyy}/${mm}/${dd}`;
-                }
+}
