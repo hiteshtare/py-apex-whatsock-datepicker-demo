@@ -187,48 +187,52 @@ function updateDatepickerOnDropdownChange(currentValue) {
   console.log(arrDisabledDays);
 
   getNextAvailableDateForSelection();
+
+  initialiseArrivalDatepicker();
 }
 
-var arrivalDatepicker = $A.setDatepicker({
-  // Unique ID for the date picker instance
-  // After instantiation, can be referenced using: var DC = $A("arrivalDateCalenderId");
-  id: "arrivalDateCalenderId",
-
-  // Icon triggering element
-  toggle: $A.get("arrivalDateIcon"),
-
-  // Native or simulated input element
-  input: $A.get("arrivalDate"),
-  // style: { position: "relative", zIndex: 1, display: "none" },
-  openOnFocus: true,
-  inputDateFormat: "DD/MM/YYYY",
-  minDate: arrivalCutoff,
-  maxDate: bookingHorizon,
-  wdOffset: 0, // 0 is Sunday
-  configure: function( dc ) {
-      for ( const dateStr of arrDisabledDays ) {
-          const disabledDate = new Date( dateStr );
-          const y = disabledDate.getFullYear();
-          const monthIndex = disabledDate.getMonth();
-          const day = disabledDate.getDate();
-          if ( ! dc.range[ monthIndex ].disabled[ y ] ) {
-              dc.range[ monthIndex ].disabled[ y ] = [];
-          }
-          dc.range[ monthIndex ].disabled[ y ].push( day );
-      }
-      return true;
-  },
-  onActivate: function (event, dc) {
-    const selected = dc.formatDate(dc);
-    dc.target.value = selected;
-    restrictDepartureDate(selected);
-    dc.remove();
-  },
-});
-
-// datepicker.render(); // Manually open the datepicker. ~
+initialiseArrivalDatepicker();
 
 initialiseDepartureDatepicker();
+
+function initialiseArrivalDatepicker() { 
+  var arrivalDatepicker = $A.setDatepicker({
+    // Unique ID for the date picker instance
+    // After instantiation, can be referenced using: var DC = $A("arrivalDateCalenderId");
+    id: "arrivalDateCalenderId",
+
+    // Icon triggering element
+    toggle: $A.get("arrivalDateIcon"),
+
+    // Native or simulated input element
+    input: $A.get("arrivalDate"),
+    // style: { position: "relative", zIndex: 1, display: "none" },
+    openOnFocus: true,
+    inputDateFormat: "DD/MM/YYYY",
+    minDate: arrivalCutoff,
+    maxDate: bookingHorizon,
+    wdOffset: 0, // 0 is Sunday
+    configure: function( dc ) {
+        for ( const dateStr of arrDisabledDays ) {
+            const disabledDate = new Date( dateStr );
+            const y = disabledDate.getFullYear();
+            const monthIndex = disabledDate.getMonth();
+            const day = disabledDate.getDate();
+            if ( ! dc.range[ monthIndex ].disabled[ y ] ) {
+                dc.range[ monthIndex ].disabled[ y ] = [];
+            }
+            dc.range[ monthIndex ].disabled[ y ].push( day );
+        }
+        return true;
+    },
+    onActivate: function (event, dc) {
+      const selected = dc.formatDate(dc);
+      dc.target.value = selected;
+      restrictDepartureDate(selected);
+      dc.remove();
+    },
+  });
+}
 
 function initialiseDepartureDatepicker() { 
   var departureDatepicker = $A.setDatepicker({
