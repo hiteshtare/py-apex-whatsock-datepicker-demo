@@ -196,10 +196,11 @@ initialiseArrivalDatepicker();
 initialiseDepartureDatepicker();
 
 function initialiseArrivalDatepicker() { 
+  debugger;
   var arrivalDatepicker = $A.setDatepicker({
     // Unique ID for the date picker instance
-    // After instantiation, can be referenced using: var DC = $A("arrivalDateCalenderId");
-    id: "arrivalDateCalenderId",
+    // After instantiation, can be referenced using: var DC = $A("ArrivalCalendarId");
+    id: "ArrivalCalendarId",
 
     // Icon triggering element
     toggle: $A.get("arrivalDateIcon"),
@@ -237,8 +238,8 @@ function initialiseArrivalDatepicker() {
 function initialiseDepartureDatepicker() { 
   var departureDatepicker = $A.setDatepicker({
     // Unique ID for the date picker instance
-    // After instantiation, can be referenced using: var DC = $A("departureDateCalenderId");
-    id: "departureDateCalenderId",
+    // After instantiation, can be referenced using: var DC = $A("DepartureCalendarId");
+    id: "DepartureCalendarId",
 
     // Icon triggering element
     toggle: $A.get("departureDateIcon"),
@@ -277,7 +278,7 @@ function restrictDepartureDate(selected) {
 
     initialiseDepartureDatepicker();
 
-    var departureCalendarConfig = $A("departureDateCalenderId");
+    var departureCalendarConfig = $A("DepartureCalendarId");
     departureCalendarConfig.minDate = formattedSelectedArrivalDate;
     departureCalendarConfig.maxDate = closestDate;
 
