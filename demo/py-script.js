@@ -186,9 +186,10 @@ function updateDatepickerOnDropdownChange(currentValue) {
   console.warn(`arrDisabledDays`);
   console.log(arrDisabledDays);
 
-  getNextAvailableDateForSelection();
-
   initialiseArrivalDatepicker();
+
+  var arrivalCalendarConfig = $A("ArrivalCalendarId");
+  arrivalCalendarConfig.DC.initialDate = getNextAvailableDateForSelection();
 }
 
 initialiseArrivalDatepicker();
@@ -196,7 +197,6 @@ initialiseArrivalDatepicker();
 initialiseDepartureDatepicker();
 
 function initialiseArrivalDatepicker() { 
-  debugger;
   var arrivalDatepicker = $A.setDatepicker({
     // Unique ID for the date picker instance
     // After instantiation, can be referenced using: var DC = $A("ArrivalCalendarId");
