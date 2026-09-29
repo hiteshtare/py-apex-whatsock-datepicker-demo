@@ -1,7 +1,7 @@
 // ---------------------- Define Variables ---------------------- //
 var maxStayDuration = 8;
 var bookingHorizon = 180;
-var arrivalCutoff = 10;
+var arrivalCutoff = 4;
 
 var ajax_data = [
     {
@@ -148,6 +148,7 @@ Date.prototype.addDays = function (days) {
 var dropdownPurposeOfVisit = $('#input_54_15');
 
 updateDatepickerOnDropdownChange (dropdownPurposeOfVisit.val());
+getNextAvailableDateForSelection();
 
 // Change event for Purpose of visit dropdown
 dropdownPurposeOfVisit.on('change', function () {
@@ -184,6 +185,8 @@ function updateDatepickerOnDropdownChange(currentValue) {
   console.log(disabledDays);
   console.warn(`arrDisabledDays`);
   console.log(arrDisabledDays);
+
+  getNextAvailableDateForSelection();
 }
 
 var arrivalDatepicker = $A.setDatepicker({
@@ -348,4 +351,58 @@ function formatDateToString(date) {
                     const yyyy = String(date.getFullYear()); 
 
                     return `${yyyy}/${mm}/${dd}`;
+}
+
+function getFutureDates(dateList) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Normalize today's date to remove time
+
+  return dateList.filter(dateString => {
+      const date = new Date(dateString);
+      return date >= today;
+  });
+}
+
+function isInArray(array, value) {
+    return (array.find(item => {return item == value}) || []).length > 0;
+}
+                
+function getNextAvailableDateForSelection(){
+  //To filter & get future dates including today
+  const futureDates = getFutureDates(arrDisabledDays);
+  console.warn('futureDates');
+  console.log(futureDates);
+
+  //To sort dates by ascending order from today
+  const sortedFutureDates = futureDates.sort(function(a,b){
+      // Turn your strings into dates, and then subtract them
+      // to get a value that is either negative, positive, or zero.
+      return new Date(a) - new Date(b);
+  });
+  console.warn('sortedFutureDates');
+  console.log(sortedFutureDates);
+
+  for (let i = 0; i < bookingHorizon; i++) {
+      var calcNextAvailableDate = new Date();
+      calcNextAvailableDate.setDate(calcNextAvailableDate.getDate() + i); //Increment date from today onwards
+      var calcNextAvailableDateFormattedDate = formatDateToString(calcNextAvailableDate);
+
+      // To check whether NextAvailableDate from today onwards does not exists in sortedFutureDates
+      var isDateFound = isInArray(sortedFutureDates, calcNextAvailableDateFormattedDate);
+      /* If isDateFound flag is false i.e. Date does not exist in Disable array
+which that date should be available for selection. Break the for loop & asign the value 
+else if isDateFound is true then continue with the loop.
+        */
+      if (!isDateFound) {
+          nextAvailableDate = calcNextAvailableDateFormattedDate;
+          break; // Exit the loop when i is 3
+      }
+  }
+
+  console.warn('calcNextAvailableDate');
+  console.log(calcNextAvailableDate);
+  console.warn('calcNextAvailableDateFormattedDate');
+  console.log(calcNextAvailableDateFormattedDate);
+  // return formatDateToString(calcNextAvailableDate);
+  return calcNextAvailableDate;
 }
