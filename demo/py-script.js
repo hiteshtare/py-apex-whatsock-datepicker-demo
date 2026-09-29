@@ -3,6 +3,38 @@ var maxStayDuration = 8;
 var bookingHorizon = 180;
 var arrivalCutoff = 4;
 
+// Set short and long weekday names
+var weekdaysNames = [
+    {
+        s: 'Su',
+        l: 'Sunday'
+    },
+    {
+        s: 'Mo',
+        l: 'Monday'
+    },
+    {
+        s: 'Tu',
+        l: 'Tuesday'
+    },
+    {
+        s: 'We',
+        l: 'Wednesday'
+    },
+    {
+        s: 'Th',
+        l: 'Thursday'
+    },
+    {
+        s: 'Fr',
+        l: 'Friday'
+    },
+    {
+        s: 'Sa',
+        l: 'Saturday'
+    }
+];
+    
 var ajax_data = [
     {
         "name": "Individual Retreat",
@@ -210,6 +242,7 @@ function initialiseArrivalDatepicker() {
     // style: { position: "relative", zIndex: 1, display: "none" },
     openOnFocus: true,
     inputDateFormat: "DD/MM/YYYY",
+    days: weekdaysNames,
     minDate: arrivalCutoff,
     maxDate: bookingHorizon,
     wdOffset: 0, // 0 is Sunday
@@ -248,6 +281,7 @@ function initialiseDepartureDatepicker() {
     input: $A.get("departureDate"),
     openOnFocus: true,
     inputDateFormat: "DD/MM/YYYY",
+    days: weekdaysNames,
     minDate: arrivalCutoff,
     maxDate: bookingHorizon,
     wdOffset: 0, // 0 is Sunday
